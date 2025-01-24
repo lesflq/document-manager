@@ -49,9 +49,9 @@ public class DocumentManager {
      * @return optional document
      */
     public Optional<Document> findById(String id) {
-
-        return Optional.empty();
+        return Optional.ofNullable(documents.get(id));
     }
+
     public boolean matchRequest(Document document, SearchRequest request) {
         if (request == null) return false;
         if(request.getTitlePrefixes() != null && document.getTitle() != null){
