@@ -26,8 +26,15 @@ public class DocumentManager {
      * @return saved document
      */
     public Document save(Document document) {
-
-        return null;
+        if (!documents.containsKey(document.getId()) || document.getId() == null) {
+            String newId = UUID.randomUUID().toString();
+            document.setId(newId);
+            if (document.getCreated() == null) {
+                document.setCreated(Instant.now());
+            }
+            documents.put(newId, document);
+        }
+        return document;
     }
 
     /**
@@ -75,7 +82,6 @@ public class DocumentManager {
         if (request.getCreatedTo() != null && document.getCreated() != null) {
             return document.getCreated().isBefore(request.getCreatedTo());
         }
-
         return false;
     }
 
